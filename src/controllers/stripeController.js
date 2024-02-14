@@ -50,3 +50,5 @@ router.post("/create-checkout-session", async (req, res) => {
 
 //   res.json({ received: true });
 // });
+
+export default router;

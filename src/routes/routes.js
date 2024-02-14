@@ -1,4 +1,10 @@
 import express from "express";
+import stripeController from "../controllers/stripeController.js";
+import reportCardController from "../controllers/reportCardController.js";
+import studentContoller from "../controllers/studentController.js";
+import userController from "../controllers/userController.js";
+// import classesController from "../controllers/classesController.js";
+
 const router = express.Router();
 
 // /api
@@ -7,10 +13,10 @@ router.get("/", (req, res) => {
 });
 
 // /api/*
-router.use("/stripe", import("../controllers/stripeController"));
-router.use("/reportcard", import("../controllers/reportCardController"));
-router.use("/students", import("../controllers/studentContoller"));
-router.use("/users", import("../controllers/userController"));
-router.use("/classes", import("../controllers/classesController"));
+router.use("/stripe", stripeController);
+router.use("/reportcard", reportCardController);
+router.use("/students", studentContoller);
+router.use("/users", userController);
+// router.use("/classes", classesController);
 
 export default router;

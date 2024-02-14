@@ -1,4 +1,4 @@
-import * as studentService from "../services/studentService";
+import * as studentService from "../services/studentService.js";
 import express from "express";
 import { config as dotenvConfig } from "dotenv";
 dotenvConfig();
