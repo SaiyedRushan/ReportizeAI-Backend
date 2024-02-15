@@ -1,4 +1,3 @@
-// import * as workerService from "../services/workerService"
 import express from "express";
 import { config as dotenvConfig } from "dotenv";
 import Stripe from "stripe";
@@ -7,20 +6,30 @@ dotenvConfig();
 const stripe = new Stripe(process.env.STRIPE_SECRET_KEY);
 const router = express.Router();
 
-router.post("/create-checkout-session", async (req, res) => {
-  const session = await stripe.checkout.sessions.create({
-    line_items: [
-      {
-        price: req.body.priceId,
-        quantity: 1,
-      },
-    ],
-    mode: "payment",
-    success_url: `${process.env.CLIENT_URL}?success=true`,
-    cancel_url: `${process.env.CLIENT_URL}?canceled=true`,
-  });
+const subscriptions = {
+  standard: "price_1OjBJvIKkT3ruTrbIMvocNQ9",
+  professional: "price_1OjBJTIKkT3ruTrbc78zMene",
+};
 
-  res.status(200).json({ url: session.url });
+router.post("/create-checkout-session", async (req, res) => {
+  try {
+    const session = await stripe.checkout.sessions.create({
+      line_items: [
+        {
+          price: subscriptions[req.body.priceId],
+          quantity: 1,
+        },
+      ],
+      mode: "payment",
+      success_url: `${process.env.CLIENT_URL}?success=true`,
+      cancel_url: `${process.env.CLIENT_URL}?canceled=true`,
+    });
+
+    res.status(200).json({ url: session.url });
+  } catch (error) {
+    console.log(error);
+    res.status(500).json({ error: "Internal Server Error" });
+  }
 });
 
 // create webhook endpoint
