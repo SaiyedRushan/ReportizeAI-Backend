@@ -17,7 +17,6 @@ router.put("/:id", async (req, res) => {
 });
 
 router.get("/subscriptionInfo", async (req, res) => {
-  console.log(req.auth);
   res.json(req.auth);
 });
 
