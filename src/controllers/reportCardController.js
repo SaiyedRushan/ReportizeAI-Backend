@@ -9,10 +9,10 @@ const router = express.Router()
 const s3 = new aws.S3()
 const BUCKET_NAME = process.env.BUCKET_NAME
 
-router.post("/generateStrengthsNextSteps", async (req, res) => {
-  const completion = await reportCardService.generateStrengthsNextSteps(req.body)
-  res.send(completion)
-})
+// router.post("/generateStrengthsNextSteps", async (req, res) => {
+//   const completion = await reportCardService.generateStrengthsNextSteps(req.body)
+//   res.send(completion)
+// })
 
 router.get("/grade1to6provincial", async (req, res) => {
   const params = {
